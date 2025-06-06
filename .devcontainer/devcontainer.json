@@ -1,0 +1,38 @@
+{
+  "name": ".NET MAUI Development Environment",
+  "image": "mcr.microsoft.com/devcontainers/dotnet:1-9.0-bookworm",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.dotnet-maui",
+        "ms-dotnettools.vscode-dotnet-runtime"
+      ],
+      "settings": {
+        "dotnet.defaultSolution": "./VibeCodeApp.sln"
+      }
+    },
+    "codespaces": {
+      "repositories": {
+        "mattleibow/vibe-code": {
+          "permissions": "write-all"
+        }
+      }
+    }
+  },
+  
+  "forwardPorts": [],
+  
+  "remoteUser": "vscode",
+  
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind"
+  ]
+}

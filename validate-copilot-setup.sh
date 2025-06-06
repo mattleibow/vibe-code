@@ -1,11 +1,11 @@
 #!/bin/bash
 # validate-copilot-setup.sh
-# Simple script to validate that the Copilot setup environment is working correctly
+# Script to validate that the Copilot devcontainer environment is working correctly
 
 set -e  # Exit on any error
 
-echo "🔍 Validating Copilot Setup Environment..."
-echo "=========================================="
+echo "🔍 Validating Copilot Development Environment..."
+echo "================================================"
 
 # Check .NET SDK
 echo "✅ Checking .NET SDK..."
@@ -54,4 +54,9 @@ echo "   Project built successfully"
 
 echo ""
 echo "🎉 All validation checks passed!"
-echo "✨ The Copilot setup environment is ready for development."
+echo "✨ The Copilot development environment is ready."
+echo ""
+echo "💡 To use the full devcontainer environment:"
+echo "   - Open in GitHub Codespaces for cloud development"
+echo "   - Use 'Dev Containers: Reopen in Container' in VS Code"
+echo "   - This provides GitHub Copilot with optimal .NET MAUI tooling"

@@ -2,7 +2,24 @@
 
 A .NET MAUI application for Android built with .NET 9.0.
 
-## Prerequisites
+## Development with GitHub Copilot
+
+This repository includes a **development container** configuration that provides a pre-configured environment for GitHub Copilot. This setup addresses firewall access issues and ensures Copilot has access to all necessary .NET MAUI development tools.
+
+### Quick Start with Codespaces
+1. Click **Code** → **Codespaces** → **Create codespace**
+2. The environment will automatically configure with .NET 9.0 and MAUI Android workload
+3. GitHub Copilot will have full access to the development tools
+
+### Local Development with Dev Containers
+1. Install the **Dev Containers** extension in VS Code
+2. Open this repository in VS Code
+3. Press `Ctrl+Shift+P` and run **Dev Containers: Reopen in Container**
+4. The container will build and configure automatically
+
+For more details, see [`.devcontainer/README.md`](.devcontainer/README.md).
+
+## Prerequisites (Local Setup)
 
 - .NET 9.0 SDK
 - MAUI Android workload
@@ -27,6 +44,14 @@ To build the Android application:
 cd VibeCodeApp
 dotnet restore
 dotnet build --configuration Release
+```
+
+## Environment Validation
+
+Run the validation script to check if your environment is properly configured:
+
+```bash
+./validate-copilot-setup.sh
 ```
 
 ## CI/CD

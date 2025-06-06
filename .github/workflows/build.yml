@@ -1,0 +1,34 @@
+name: Build .NET MAUI App
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Install MAUI workload
+      run: dotnet workload install maui-android
+
+    - name: Restore dependencies
+      run: dotnet restore VibeCodeApp/VibeCodeApp.csproj
+
+    - name: Build
+      run: dotnet build VibeCodeApp/VibeCodeApp.csproj --no-restore --configuration Release
+
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-apk
+        path: VibeCodeApp/bin/Release/net9.0-android/*.apk

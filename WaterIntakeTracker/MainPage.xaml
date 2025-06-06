@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="WaterIntakeTracker.MainPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="💧 Water Intake Tracker"
+             BackgroundColor="{StaticResource Primary}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="25" Padding="30,0" VerticalOptions="Center">
+
+            <!-- Header -->
+            <Label x:Name="WelcomeLabel"
+                   Text="Stay Hydrated! 💪"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="White"
+                   Margin="0,20,0,30" />
+
+            <!-- Daily Goal Display -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="20"
+                   HasShadow="True"
+                   Padding="20">
+                <StackLayout>
+                    <Label Text="Daily Goal: 8 glasses (2L)"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}" />
+                    
+                    <Label x:Name="ProgressLabel"
+                           Text="0 / 8 glasses completed"
+                           FontSize="16"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Secondary}"
+                           Margin="0,5,0,0" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Cool Progress Bar -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="20"
+                   HasShadow="True"
+                   Padding="20"
+                   Margin="0,10,0,0">
+                <StackLayout>
+                    <Label Text="Progress"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}"
+                           Margin="0,0,0,15" />
+                    
+                    <!-- Water bottle visual representation -->
+                    <Grid HeightRequest="200" WidthRequest="100" HorizontalOptions="Center">
+                        <!-- Bottle outline -->
+                        <Frame BackgroundColor="Transparent"
+                               BorderColor="{StaticResource Primary}"
+                               CornerRadius="15"
+                               HasShadow="False"
+                               Padding="0"
+                               VerticalOptions="Fill"
+                               HorizontalOptions="Fill" />
+                        
+                        <!-- Water level -->
+                        <Frame x:Name="WaterLevel"
+                               BackgroundColor="#4FC3F7"
+                               CornerRadius="12"
+                               HasShadow="False"
+                               Padding="0"
+                               VerticalOptions="End"
+                               HorizontalOptions="Fill"
+                               HeightRequest="0"
+                               Margin="3" />
+                    </Grid>
+                    
+                    <!-- Standard progress bar as backup -->
+                    <ProgressBar x:Name="ProgressBar"
+                                 Progress="0"
+                                 ProgressColor="{StaticResource Secondary}"
+                                 BackgroundColor="#E0E0E0"
+                                 HeightRequest="20"
+                                 Margin="0,20,0,0" />
+                    
+                    <Label x:Name="PercentageLabel"
+                           Text="0% Complete"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}"
+                           Margin="0,10,0,0" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Action Buttons -->
+            <StackLayout Orientation="Horizontal" 
+                        HorizontalOptions="Center"
+                        Spacing="20"
+                        Margin="0,20,0,0">
+                
+                <Button x:Name="AddGlassBtn"
+                        Text="➕ Add Glass"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        BackgroundColor="#4CAF50"
+                        TextColor="White"
+                        CornerRadius="25"
+                        WidthRequest="140"
+                        HeightRequest="50"
+                        Clicked="OnAddGlassClicked" />
+                
+                <Button x:Name="RemoveGlassBtn"
+                        Text="➖ Remove"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        BackgroundColor="#F44336"
+                        TextColor="White"
+                        CornerRadius="25"
+                        WidthRequest="140"
+                        HeightRequest="50"
+                        Clicked="OnRemoveGlassClicked" />
+            </StackLayout>
+
+            <!-- Achievement Section -->
+            <Frame x:Name="AchievementFrame"
+                   BackgroundColor="#FFD700"
+                   CornerRadius="20"
+                   HasShadow="True"
+                   Padding="20"
+                   IsVisible="False"
+                   Margin="0,20,0,0">
+                <StackLayout>
+                    <Label Text="🎉 Congratulations! 🎉"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           TextColor="#FF6F00" />
+                    
+                    <Label Text="You've reached your daily hydration goal!"
+                           FontSize="16"
+                           HorizontalOptions="Center"
+                           TextColor="#FF8F00"
+                           Margin="0,5,0,0" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Motivational Message -->
+            <Label x:Name="MotivationLabel"
+                   Text="Let's start hydrating! 💧"
+                   FontSize="16"
+                   FontStyle="Italic"
+                   HorizontalOptions="Center"
+                   TextColor="White"
+                   Margin="0,20,0,40" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

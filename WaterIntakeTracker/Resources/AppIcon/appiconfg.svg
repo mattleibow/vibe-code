@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <!-- Foreground water drop -->
+  <path d="M128 64 C 110 80, 96 108, 96 132 C 96 164, 110 192, 128 192 C 146 192, 160 164, 160 132 C 160 108, 146 80, 128 64 Z" 
+        fill="#FFFFFF"/>
+</svg>

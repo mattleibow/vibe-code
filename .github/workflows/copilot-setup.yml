@@ -1,0 +1,79 @@
+name: Copilot Setup Steps
+
+on:
+  workflow_dispatch:  # Allow manual triggering
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday to keep environment fresh
+
+jobs:
+  setup-copilot-environment:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 9.0 SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Verify .NET installation
+      run: |
+        echo "Installed .NET SDK version:"
+        dotnet --version
+        echo ""
+        echo "Available SDKs:"
+        dotnet --list-sdks
+
+    - name: Install MAUI Android workload
+      run: |
+        echo "Installing MAUI Android workload..."
+        dotnet workload install maui-android --skip-sign-check
+        echo ""
+        echo "Installation complete."
+        
+    - name: List installed workloads
+      run: |
+        echo "Currently installed workloads:"
+        dotnet workload list
+
+    - name: Cache NuGet packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
+    - name: Restore project dependencies
+      run: |
+        echo "Restoring project dependencies..."
+        dotnet restore VibeCodeApp/VibeCodeApp.csproj
+        echo "Dependencies restored successfully."
+
+    - name: Verify project can build
+      run: |
+        echo "Building project to verify setup..."
+        dotnet build VibeCodeApp/VibeCodeApp.csproj --no-restore --configuration Release --verbosity minimal
+        echo "Build verification completed successfully."
+
+    - name: Create environment summary
+      run: |
+        echo "## Copilot Environment Setup Complete 🚀" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "This workflow prepares the development environment for GitHub Copilot to work with the .NET MAUI project." >> $GITHUB_STEP_SUMMARY
+        echo "It addresses the firewall access issues mentioned in PR #7 by setting up the environment before restrictions are applied." >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 🛠️ Installed Components:" >> $GITHUB_STEP_SUMMARY
+        echo "- **.NET SDK:** $(dotnet --version)" >> $GITHUB_STEP_SUMMARY
+        echo "- **MAUI Android Workload:** ✅ Installed and verified" >> $GITHUB_STEP_SUMMARY
+        echo "- **Project Dependencies:** ✅ Restored successfully" >> $GITHUB_STEP_SUMMARY
+        echo "- **Build Verification:** ✅ Project builds successfully" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📋 Usage" >> $GITHUB_STEP_SUMMARY
+        echo "- Run this workflow manually via **Actions > Copilot Setup Steps > Run workflow**" >> $GITHUB_STEP_SUMMARY
+        echo "- Automatically runs weekly to keep the environment fresh" >> $GITHUB_STEP_SUMMARY
+        echo "- Ensures Copilot has access to properly configured .NET 9.0 and MAUI tools" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**The development environment is now ready for Copilot operations! 🎉**" >> $GITHUB_STEP_SUMMARY

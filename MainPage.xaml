@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="WaterIntakeApp.MainPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Water Intake Tracker"
+             BackgroundColor="{StaticResource LightWaterBlue}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Cool Gradient for Water Progress -->
+            <LinearGradientBrush x:Key="WaterGradient" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="{StaticResource WaveGradientStart}" Offset="0.0" />
+                <GradientStop Color="{StaticResource WaveGradientEnd}" Offset="1.0" />
+            </LinearGradientBrush>
+            
+            <!-- Button Gradient -->
+            <LinearGradientBrush x:Key="ButtonGradient" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="{StaticResource WaterCyan}" Offset="0.0" />
+                <GradientStop Color="{StaticResource WaterBlue}" Offset="1.0" />
+            </LinearGradientBrush>
+            
+            <!-- Remove Button Gradient -->
+            <LinearGradientBrush x:Key="RemoveButtonGradient" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="#FF7043" Offset="0.0" />
+                <GradientStop Color="#D32F2F" Offset="1.0" />
+            </LinearGradientBrush>
+
+            <!-- Animated Styles -->
+            <Style x:Key="WaterWaveStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="CornerRadius" Value="150" />
+                <Setter Property="BorderColor" Value="{StaticResource WaterBlue}" />
+            </Style>
+
+            <Style x:Key="GlassButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource ButtonGradient}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="CornerRadius" Value="25" />
+                <Setter Property="HeightRequest" Value="60" />
+                <Setter Property="WidthRequest" Value="200" />
+                <Setter Property="Shadow">
+                    <Shadow Brush="Black" Offset="3,3" Radius="8" Opacity="0.3" />
+                </Setter>
+            </Style>
+
+            <Style x:Key="RemoveButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource RemoveButtonGradient}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="WidthRequest" Value="150" />
+                <Setter Property="Shadow">
+                    <Shadow Brush="Black" Offset="2,2" Radius="6" Opacity="0.3" />
+                </Setter>
+            </Style>
+
+            <Style x:Key="HeaderLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="28" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="{StaticResource DeepWaterBlue}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="StatsLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="{StaticResource WaterBlue}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto,*,Auto,Auto,Auto" Padding="20">
+            
+            <!-- Header Section -->
+            <StackLayout Grid.Row="0" Spacing="10" Margin="0,20,0,30">
+                <Label Text="💧 Daily Water Intake" Style="{StaticResource HeaderLabelStyle}" />
+                <Label x:Name="DateLabel" Text="{Binding CurrentDate}" 
+                       FontSize="16" TextColor="{StaticResource WaterBlue}" 
+                       HorizontalOptions="Center" />
+            </StackLayout>
+
+            <!-- Water Container/Progress Section -->
+            <Grid Grid.Row="1" RowDefinitions="Auto,300,Auto" Margin="0,0,0,40">
+                
+                <!-- Goal Progress Text -->
+                <StackLayout Grid.Row="0" Spacing="5" Margin="0,0,0,20">
+                    <Label x:Name="ProgressLabel" Text="{Binding ProgressText}" 
+                           Style="{StaticResource StatsLabelStyle}" FontSize="18" />
+                    <Label x:Name="GoalLabel" Text="{Binding GoalText}" 
+                           Style="{StaticResource StatsLabelStyle}" FontSize="14" />
+                </StackLayout>
+
+                <!-- Animated Water Container -->
+                <Frame Grid.Row="1" Style="{StaticResource WaterWaveStyle}" 
+                       HeightRequest="300" WidthRequest="300" 
+                       HorizontalOptions="Center" VerticalOptions="Center">
+                    
+                    <Grid>
+                        <!-- Water Level Background -->
+                        <Ellipse Fill="{StaticResource LightWaterBlue}" 
+                                Stroke="{StaticResource WaterBlue}" 
+                                StrokeThickness="3"
+                                HeightRequest="280" WidthRequest="280" />
+                        
+                        <!-- Animated Water Level -->
+                        <Grid x:Name="WaterContainer" ClipToBounds="True">
+                            <Ellipse HeightRequest="280" WidthRequest="280" />
+                            <Grid.Clip>
+                                <EllipseGeometry RadiusX="140" RadiusY="140" Center="140,140" />
+                            </Grid.Clip>
+                            
+                            <!-- Water Fill -->
+                            <Rectangle x:Name="WaterFill" 
+                                      Fill="{StaticResource WaterGradient}" 
+                                      VerticalOptions="End"
+                                      HeightRequest="{Binding WaterHeight}" />
+                        </Grid>
+                        
+                        <!-- Water Drop Animation -->
+                        <Label x:Name="WaterDropIcon" Text="💧" FontSize="40" 
+                               HorizontalOptions="Center" VerticalOptions="Center"
+                               Opacity="{Binding DropOpacity}" />
+                        
+                        <!-- Percentage Text Overlay -->
+                        <Label x:Name="PercentageLabel" Text="{Binding PercentageText}" 
+                               FontSize="24" FontAttributes="Bold" 
+                               TextColor="White" 
+                               HorizontalOptions="Center" VerticalOptions="Center"
+                               Shadow="{StaticResource Shadow}" />
+                    </Grid>
+                </Frame>
+
+                <!-- Glasses Indicator -->
+                <StackLayout Grid.Row="2" Orientation="Horizontal" 
+                           HorizontalOptions="Center" Spacing="10" Margin="0,20,0,0">
+                    <Label Text="Glasses:" Style="{StaticResource StatsLabelStyle}" />
+                    <StackLayout x:Name="GlassesIndicator" Orientation="Horizontal" Spacing="5">
+                        <!-- Glass icons will be added programmatically -->
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+
+            <!-- Action Buttons Section -->
+            <StackLayout Grid.Row="2" Spacing="20" Margin="0,0,0,30">
+                
+                <!-- Add Glass Button -->
+                <Button x:Name="AddGlassButton" 
+                        Text="🥤 Add Glass (+250ml)" 
+                        Style="{StaticResource GlassButtonStyle}"
+                        Clicked="OnAddGlassClicked"
+                        HorizontalOptions="Center" />
+                
+                <!-- Remove Glass Button -->
+                <Button x:Name="RemoveGlassButton" 
+                        Text="❌ Remove Glass" 
+                        Style="{StaticResource RemoveButtonStyle}"
+                        Clicked="OnRemoveGlassClicked"
+                        HorizontalOptions="Center"
+                        IsEnabled="{Binding CanRemoveGlass}" />
+            </StackLayout>
+
+            <!-- Statistics Section -->
+            <Frame Grid.Row="3" BackgroundColor="White" 
+                   CornerRadius="15" Padding="20" 
+                   HasShadow="True" Margin="0,0,0,20">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto">
+                    
+                    <Label Grid.Row="0" Grid.ColumnSpan="2" 
+                           Text="📊 Today's Stats" 
+                           FontSize="18" FontAttributes="Bold" 
+                           TextColor="{StaticResource DeepWaterBlue}"
+                           HorizontalOptions="Center" Margin="0,0,0,15" />
+                    
+                    <StackLayout Grid.Row="1" Grid.Column="0" Spacing="5">
+                        <Label Text="Current Intake" FontSize="12" 
+                               TextColor="{StaticResource Gray600}" HorizontalOptions="Center" />
+                        <Label x:Name="CurrentIntakeLabel" Text="{Binding CurrentIntakeText}" 
+                               FontSize="16" FontAttributes="Bold" 
+                               TextColor="{StaticResource WaterBlue}" HorizontalOptions="Center" />
+                    </StackLayout>
+                    
+                    <StackLayout Grid.Row="1" Grid.Column="1" Spacing="5">
+                        <Label Text="Glasses Count" FontSize="12" 
+                               TextColor="{StaticResource Gray600}" HorizontalOptions="Center" />
+                        <Label x:Name="GlassCountLabel" Text="{Binding GlassCountText}" 
+                               FontSize="16" FontAttributes="Bold" 
+                               TextColor="{StaticResource WaterTeal}" HorizontalOptions="Center" />
+                    </StackLayout>
+                    
+                    <StackLayout Grid.Row="2" Grid.ColumnSpan="2" Spacing="5" Margin="0,15,0,0">
+                        <Label Text="Progress to Goal" FontSize="12" 
+                               TextColor="{StaticResource Gray600}" HorizontalOptions="Center" />
+                        <ProgressBar x:Name="ProgressBar" 
+                                    Progress="{Binding ProgressValue}" 
+                                    ProgressColor="{StaticResource WaterGreen}"
+                                    BackgroundColor="{StaticResource Gray200}"
+                                    HeightRequest="8" />
+                    </StackLayout>
+                </Grid>
+            </Frame>
+
+            <!-- Motivational Section -->
+            <Frame Grid.Row="4" BackgroundColor="{StaticResource WaterGreen}" 
+                   CornerRadius="15" Padding="15" HasShadow="True">
+                <Label x:Name="MotivationLabel" Text="{Binding MotivationText}" 
+                       FontSize="14" FontAttributes="Italic" 
+                       TextColor="White" HorizontalOptions="Center" 
+                       HorizontalTextAlignment="Center" />
+            </Frame>
+
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

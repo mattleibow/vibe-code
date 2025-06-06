@@ -1,14 +1,16 @@
 # HydroVibe 💧
 
-> A smart .NET MAUI app that transforms hydration tracking into a delightful daily habit.
+> A smart .NET MAUI app concept for hydration tracking - currently in early development.
 
-![HydroVibe Main Screen](docs/assets/main-screen-mockup.png)
+## Current Status
 
-## Overview
+This repository contains a foundational .NET MAUI application that will evolve into **HydroVibe**, a comprehensive hydration tracking solution. The current implementation is a basic MAUI app structure, with the full HydroVibe features planned for future development.
 
-HydroVibe is a cross-platform mobile application designed to help users maintain optimal hydration levels through intelligent tracking, personalized reminders, and comprehensive analytics. Built with .NET MAUI, it delivers native performance on both iOS and Android platforms.
+## Vision: HydroVibe App Concept
 
-### Key Features
+HydroVibe will be a cross-platform mobile application designed to help users maintain optimal hydration levels through intelligent tracking, personalized reminders, and comprehensive analytics.
+
+### Planned Key Features
 
 🚰 **Smart Water Logging**
 - One-tap quick-add buttons for common volumes
@@ -34,61 +36,34 @@ HydroVibe is a cross-platform mobile application designed to help users maintain
 - Custom container library with your favorite bottles and cups
 - Dark/light theme support with accessibility features
 
-## Screenshots
+## Prerequisites
 
-<table>
-<tr>
-<td><img src="docs/assets/main-screen-mockup.png" width="200" alt="Main Screen"/></td>
-<td><img src="docs/assets/analytics-screen-mockup.png" width="200" alt="Analytics"/></td>
-<td><img src="docs/assets/settings-screen-mockup.png" width="200" alt="Settings"/></td>
-</tr>
-<tr>
-<td align="center">Main Dashboard</td>
-<td align="center">Analytics & Insights</td>
-<td align="center">Settings & Profile</td>
-</tr>
-</table>
+- .NET 9.0 SDK
+- MAUI Android workload
 
-## Why HydroVibe?
+## Setup
 
-### The Problem
-- **70% of adults** don't drink enough water daily
-- **Busy lifestyles** make it easy to forget hydration
-- **Generic recommendations** don't account for individual needs
-- **Complex apps** overwhelm users with unnecessary features
+1. Install the latest .NET SDK:
+```bash
+curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel 9.0
+```
 
-### Our Solution
-HydroVibe focuses exclusively on making hydration tracking **simple, smart, and sustainable**:
+2. Install the MAUI Android workload:
+```bash
+dotnet workload install maui-android
+```
 
-✅ **Simplicity First**: Clean, intuitive interface that doesn't overwhelm  
-✅ **Smart Automation**: Learns your patterns and adapts accordingly  
-✅ **Habit Formation**: Built on behavioral psychology principles  
-✅ **Privacy-Focused**: Your data stays on your device by default  
+## Build
 
-## Target Users
+To build the Android application:
 
-- **Health-Conscious Individuals**: People actively working to improve wellness habits
-- **Fitness Enthusiasts**: Athletes and gym-goers who need optimal hydration
-- **Busy Professionals**: Office workers who forget to drink water during hectic days
-- **Medical Patients**: Individuals with conditions requiring hydration monitoring
-- **Parents**: Families wanting to track hydration for all members
+```bash
+cd VibeCodeApp
+dotnet restore
+dotnet build --configuration Release
+```
 
-## Technical Highlights
-
-- **Framework**: .NET MAUI 8.0+ for native cross-platform performance
-- **Architecture**: MVVM pattern with dependency injection
-- **Storage**: SQLite with optional cloud synchronization
-- **Platforms**: iOS 12+, Android 7.0+ (API 24)
-- **Performance**: Sub-2-second app launch, < 100MB memory usage
-- **Offline-First**: Full functionality without internet connection
-
-## Getting Started
-
-### For Users
-1. Download HydroVibe from the App Store or Google Play
-2. Set up your profile (weight, activity level, goals)
-3. Add your favorite water containers
-4. Start logging your water intake!
+## Development
 
 ### For Developers
 ```bash
@@ -98,45 +73,52 @@ git clone https://github.com/mattleibow/vibe-code.git
 # Navigate to project directory
 cd vibe-code
 
+# Navigate to the app directory
+cd VibeCodeApp
+
 # Restore dependencies
 dotnet restore
 
 # Build the project
 dotnet build
 
-# Run on your preferred platform
+# Run on Android
 dotnet build -t:Run -f net8.0-android
-# or
-dotnet build -t:Run -f net8.0-ios
 ```
 
 ## Documentation
 
-Comprehensive documentation is available in the [docs](./docs/) folder:
+Comprehensive concept documentation is available in the [docs](./docs/) folder:
 
 - **[App Concept](./docs/app-concept.md)**: Detailed feature overview and user personas
-- **[Technical Specifications](./docs/technical-specs.md)**: Architecture, data models, and implementation details  
-- **[User Guide](./docs/user-guide.md)**: Complete guide for using all app features
+- **[Technical Specifications](./docs/technical-specs.md)**: Architecture, data models, and implementation plans  
+- **[User Guide](./docs/user-guide.md)**: Planned user experience and feature guide
 
 ## Roadmap
 
-### Phase 1: Foundation (Current)
-- [x] Core water logging functionality
-- [x] Basic progress tracking and goals
-- [x] Simple reminder system
-- [x] Cross-platform UI implementation
+### Phase 1: Foundation (In Progress)
+- [x] Basic .NET MAUI project structure
+- [x] Cross-platform build configuration
+- [ ] Core water logging functionality
+- [ ] Basic progress tracking and goals
+- [ ] Simple reminder system
+- [ ] Cross-platform UI implementation
 
-### Phase 2: Intelligence
+### Phase 2: Intelligence (Planned)
 - [ ] Advanced analytics and trend analysis
 - [ ] Machine learning-powered habit insights
 - [ ] Weather integration for smart suggestions
 - [ ] Achievement system and gamification
 
-### Phase 3: Integration
+### Phase 3: Integration (Future)
 - [ ] Health app synchronization (Apple Health, Google Fit)
 - [ ] Wearable device support (Apple Watch, Wear OS)
 - [ ] Social features and family sharing
 - [ ] Advanced ML-powered personalization
+
+## CI/CD
+
+The project includes a GitHub Actions workflow that automatically builds the Android APK on push and pull requests to the main branch.
 
 ## Contributing
 
@@ -147,28 +129,12 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 - Issue reporting
 - Development setup
 
-## Privacy & Security
-
-HydroVibe is built with privacy as a core principle:
-
-- **Local-First**: All data stored locally by default
-- **Optional Cloud Sync**: User-controlled backup and synchronization
-- **No Personal Data Collection**: We don't collect personally identifiable information
-- **Transparent Permissions**: Clear explanation of all required device permissions
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Support
-
-- **Bug Reports**: [GitHub Issues](https://github.com/mattleibow/vibe-code/issues)
-- **Feature Requests**: [GitHub Discussions](https://github.com/mattleibow/vibe-code/discussions)
-- **Documentation**: Check our [User Guide](./docs/user-guide.md)
-- **Contact**: [Create a new issue](https://github.com/mattleibow/vibe-code/issues/new) for support
-
 ---
 
-**Stay Hydrated, Stay Healthy!** 💧
+**Building the future of hydration tracking with .NET MAUI** 💧
 
 Made with ❤️ using .NET MAUI

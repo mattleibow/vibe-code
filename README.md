@@ -38,14 +38,14 @@ HydroVibe will be a cross-platform mobile application designed to help users mai
 
 ## Prerequisites
 
-- .NET 9.0 SDK
+- .NET 8.0 SDK
 - MAUI Android workload
 
 ## Setup
 
 1. Install the latest .NET SDK:
 ```bash
-curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel 9.0
+curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel 8.0
 ```
 
 2. Install the MAUI Android workload:
